@@ -2,24 +2,28 @@ import sys, pygame
 from pygame.locals import *
 
 pygame.init()
-size = width, height = (1280, 720)
+size = width, height = (640, 720)
 screen = pygame.display.set_mode(size)
 
 def main():
     pygame.display.set_caption("ONAKA GAME")
     x = width/2
-    y = height/2
+    y = height-30
 
     while True:
         screen.fill((0, 0, 0,))
         pygame.draw.circle(screen, (255,255,255),(x, y),30)
-        pygame.display.update
+        pygame.draw.rect(screen, (255,255,255), (20,5,20,690), 10)
+        pygame.display.update()
+
 
         pressed_key = pygame.key.get_pressed()
-        if pressed_key[K_LEFT]:
+        if pressed_key[K_LEFT] and  x > 30 +45 :
             x-=1
-        if pressed_key[K_RIGHT]:
+        if pressed_key[K_RIGHT] and x < width - 30:
             x+=1
+        
+    
 
         for event in pygame.event.get():
             if event.type == QUIT:
