@@ -7,10 +7,19 @@ screen = pygame.display.set_mode(size)
 
 def main():
     pygame.display.set_caption("ONAKA GAME")
+    x = width/2
+    y = height/2
 
     while True:
         screen.fill((0, 0, 0,))
-        pygame.display.update()
+        pygame.draw.circle(screen, (255,255,255),(x, y),30)
+        pygame.display.update
+
+        pressed_key = pygame.key.get_pressed()
+        if pressed_key[K_LEFT]:
+            x-=1
+        if pressed_key[K_RIGHT]:
+            x+=1
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -37,3 +46,4 @@ def main_menu():
 
 if __name__ == "__main__":
     main_menu()
+   
