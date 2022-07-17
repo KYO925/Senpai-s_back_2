@@ -1,19 +1,25 @@
 import sys, pygame
 from pygame.locals import *
+import food
 
 pygame.init()
 size = width, height = (640, 720)
 screen = pygame.display.set_mode(size)
 
+
 def main():
     pygame.display.set_caption("ONAKA GAME")
     x = width/2
     y = height-30
+    chicken = food.Food(food.fried_chicken, 0, 300, 0)
 
     while True:
         screen.fill((0, 0, 0,))
         pygame.draw.circle(screen, (255,255,255),(x, y),30)
         pygame.draw.rect(screen, (255,255,255), (20,5,20,690), 10)
+        
+        chicken.draw(screen)
+        chicken.fall()
         pygame.display.update()
 
 
