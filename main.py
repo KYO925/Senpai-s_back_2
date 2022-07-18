@@ -29,7 +29,7 @@ def main():
         
         if len(foods) <= 5:
             for i in range(food_amount):
-                foods.append(add_food(random.randrange(45, width), random.randrange(-3000, -10), random.randrange(5, 15)))
+                foods.append(add_food(random.randrange(45, width-50), random.randrange(-3000, -10), random.randrange(5, 15)))
 
         for food in foods:
             food.draw(screen)
@@ -41,6 +41,9 @@ def main():
             if collide(player, food):
                 foods.remove(food)
                 player.add_point(food.point)
+                if player.point >= 120:
+                    player.point = 120
+                    game_over(player.point)
                
 
         pygame.display.update()
@@ -62,6 +65,8 @@ def main():
                 if event.key == K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+                if event.key == K_SPACE:
+                    game_over(player.point)
 
 def main_menu():
     titlefont = pygame.font.SysFont(None, 32)
@@ -80,6 +85,35 @@ def main_menu():
                     sys.exit()
                 elif event.key == K_SPACE:
                     main()
+
+def game_over(score):
+    gameoverfont = pygame.font.SysFont(None, 32)
+    while True:
+        screen.fill((0,0,0))
+        if 80 == score:
+            ptext = "Perfect!!!!!"
+        elif 80 <= score < 90: 
+            ptext = "Good"
+        elif 80 > score:
+            ptext = "I'm hungry."
+        elif 90 <= score:
+            ptext = "Overeating!!!!!"
+
+        gameovertext = gameoverfont.render(ptext, True, (200,200,0))
+        gameoverscore = gameoverfont.render(f'{score}%', True, (200,200,0))
+        screen.blit(gameovertext, (int(width/2) -int(gameovertext.get_width()/2),300))
+        screen.blit(gameoverscore, (int(width/2) -int(gameoverscore.get_width()/2),350))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+                elif event.key == K_SPACE:
+                    main_menu()
 
 if __name__ == "__main__":
     main_menu()

@@ -13,6 +13,8 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.player_img, (self.x, self.y))
+        pygame.draw.rect(screen, (255,255,255), (5,5,30,700), 2)
+        pygame.draw.rect(screen, (255,128,128), (10,700-700*self.point/100,20,700*self.point/100), 0)
 
     def move(self, horizontal):
         self.x += horizontal
